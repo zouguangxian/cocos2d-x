@@ -69,7 +69,9 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 
 	@Override
 	public void onSurfaceCreated(final GL10 pGL10, final EGLConfig pEGLConfig) {
-		Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
+		synchronized(Cocos2dxRenderer.class) {
+			Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
+		}
 		this.mLastTickInNanoSeconds = System.nanoTime();
 	}
 
@@ -91,8 +93,9 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 
 		// should render a frame when onDrawFrame() is called or there is a
 		// "ghost"
-		Cocos2dxRenderer.nativeRender();
-
+		synchronized(Cocos2dxRenderer.class) {
+			Cocos2dxRenderer.nativeRender();
+		}
 		/*
 		// fps controlling
 		if (interval < Cocos2dxRenderer.sAnimationInterval) {

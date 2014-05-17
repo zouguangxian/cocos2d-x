@@ -122,7 +122,7 @@ public class Cocos2dxTextInputWraper implements TextWatcher, OnEditorActionListe
 
 	@Override
 	public boolean onEditorAction(final TextView pTextView, final int pActionID, final KeyEvent pKeyEvent) {
-		if (this.mCocos2dxGLSurfaceView.getCocos2dxEditText() == pTextView && this.isFullScreenEdit()) {
+		if (this.mCocos2dxGLSurfaceView.getCocos2dxEditText() == pTextView && this.isFullScreenEdit() && this.mOriginText != null) {
 			// user press the action button, delete all old text and insert new text
 			for (int i = this.mOriginText.length(); i > 0; i--) {
 				this.mCocos2dxGLSurfaceView.deleteBackward();
